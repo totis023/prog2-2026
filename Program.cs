@@ -8,7 +8,10 @@ builder.Services.AddOpenApi();
 //Agrego los controladores
 builder.Services.AddControllers();
 
-builder.Services.AddSingleton<iLibroService, LibroService>();
+//builder.Services.AddTransient<iLibroService, LibroService>();
+builder.Services.AddScoped<IFileStorageService, FileStorageService>();
+builder.Services.AddScoped<iLibroService, LibroFileService>();
+
 // OpenAPI/Swagger para documentación y pruebas de la API
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -30,7 +33,4 @@ app.UseHttpsRedirection();
 app.MapControllers();
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+
